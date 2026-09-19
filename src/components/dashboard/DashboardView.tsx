@@ -29,15 +29,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate }) => {
     onNavigate('workout');
   };
 
-  const currentWeekDays = [
-    { day: 'MON', routine: 'CHEST + TRI', type: 'gym' },
-    { day: 'TUE', routine: 'FOOTBALL', type: 'football' },
-    { day: 'WED', routine: 'BACK + BI', type: 'gym' },
-    { day: 'THU', routine: 'FULL BODY', type: 'gym' },
-    { day: 'FRI', routine: 'REST DAY', type: 'rest' },
-    { day: 'SAT', routine: 'LEGS + DELT', type: 'gym' },
-    { day: 'SUN', routine: 'CHEST + BACK', type: 'gym' },
-  ];
+  const currentWeekDays = ALL_100_DAYS.slice(0, 7).map(d => ({
+    day: d.day_of_week.slice(0, 3).toUpperCase(),
+    routine: d.workout_name.toUpperCase(),
+    type: d.day_type
+  }));
 
   return (
     <div className="max-w-5xl mx-auto space-y-6 pb-20">

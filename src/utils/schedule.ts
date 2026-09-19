@@ -18,9 +18,8 @@ export const EXERCISE_GIF_MAP: Record<string, string> = {
   'Machine Chest Press': 'https://i0.wp.com/www.strengthlog.com/wp-content/uploads/2020/03/Decline-Bench-Press.gif?resize=600%2C600&ssl=1',
 };
 
-// Base exercise templates by weekday
-export const ROUTINE_TEMPLATES: Record<string, { type: DayType; name: string; exercises: Omit<ExerciseTemplate, 'id'>[]; instructions?: string[] }> = {
-  Monday: {
+export const ROUTINE_CYCLE: { type: DayType; name: string; exercises: Omit<ExerciseTemplate, 'id'>[]; instructions?: string[] }[] = [
+  {
     type: 'gym',
     name: 'Chest + Triceps',
     exercises: [
@@ -33,7 +32,7 @@ export const ROUTINE_TEMPLATES: Record<string, { type: DayType; name: string; ex
       { name: 'Plank', muscle_group: 'Core', sets: 3, min_reps: 30, max_reps: 60, sort_order: 7, is_optional: true, notes: 'Hold for 30-60 sec', gif_url: 'https://cdn.jefit.com/assets/img/exercises/gifs/631.gif' },
     ]
   },
-  Tuesday: {
+  {
     type: 'football',
     name: 'Football Day',
     exercises: [],
@@ -46,7 +45,7 @@ export const ROUTINE_TEMPLATES: Record<string, { type: DayType; name: string; ex
       'Prioritize 8+ hours quality sleep'
     ]
   },
-  Wednesday: {
+  {
     type: 'gym',
     name: 'Back + Biceps',
     exercises: [
@@ -60,19 +59,19 @@ export const ROUTINE_TEMPLATES: Record<string, { type: DayType; name: string; ex
       { name: 'Dead Bug', muscle_group: 'Core', sets: 3, min_reps: 8, max_reps: 12, sort_order: 8, notes: 'Each side controlled' },
     ]
   },
-  Thursday: {
+  {
     type: 'gym',
     name: 'Full Body',
     exercises: [
       { name: 'Squat / Leg Press', muscle_group: 'Quads & Glutes', sets: 3, min_reps: 8, max_reps: 12, sort_order: 1 },
-      { name: 'Bench Press / Machine Chest Press', muscle_group: 'Chest', sets: 3, min_reps: 8, max_reps: 12, sort_order: 2 },
+      { name: 'Bench Press / Machine Chest Press', muscle_group: 'Chest', sets: 3, min_reps: 8, max_reps: 12, sort_order: 2, gif_url: 'https://i0.wp.com/www.strengthlog.com/wp-content/uploads/2020/03/Decline-Bench-Press.gif?resize=600%2C600&ssl=1' },
       { name: 'Lat Pulldown', muscle_group: 'Back', sets: 3, min_reps: 8, max_reps: 12, sort_order: 3 },
       { name: 'Romanian Deadlift', muscle_group: 'Hamstrings & Glutes', sets: 3, min_reps: 8, max_reps: 12, sort_order: 4 },
       { name: 'Shoulder Press', muscle_group: 'Shoulders', sets: 2, min_reps: 8, max_reps: 12, sort_order: 5 },
-      { name: 'Cable Crunch / Plank', muscle_group: 'Core', sets: 3, min_reps: 12, max_reps: 15, sort_order: 6 },
+      { name: 'Cable Crunch / Plank', muscle_group: 'Core', sets: 3, min_reps: 12, max_reps: 15, sort_order: 6, gif_url: 'https://cdn.jefit.com/assets/img/exercises/gifs/631.gif' },
     ]
   },
-  Friday: {
+  {
     type: 'rest',
     name: 'Rest Day',
     exercises: [],
@@ -84,7 +83,7 @@ export const ROUTINE_TEMPLATES: Record<string, { type: DayType; name: string; ex
       'Prioritize early sleep'
     ]
   },
-  Saturday: {
+  {
     type: 'gym',
     name: 'Legs + Shoulders',
     exercises: [
@@ -98,19 +97,30 @@ export const ROUTINE_TEMPLATES: Record<string, { type: DayType; name: string; ex
       { name: 'Rear Delt Fly / Reverse Pec Deck', muscle_group: 'Rear Delts', sets: 3, min_reps: 12, max_reps: 15, sort_order: 8 },
     ]
   },
-  Sunday: {
+  {
     type: 'gym',
     name: 'Chest + Back',
     exercises: [
-      { name: 'Incline Bench Press', muscle_group: 'Upper Chest', sets: 3, min_reps: 8, max_reps: 12, sort_order: 1 },
-      { name: 'Machine Chest Press', muscle_group: 'Chest', sets: 3, min_reps: 8, max_reps: 12, sort_order: 2 },
-      { name: 'Cable / Machine Fly', muscle_group: 'Chest', sets: 2, min_reps: 10, max_reps: 15, sort_order: 3 },
+      { name: 'Incline Bench Press', muscle_group: 'Upper Chest', sets: 3, min_reps: 8, max_reps: 12, sort_order: 1, gif_url: 'https://i0.wp.com/www.strengthlog.com/wp-content/uploads/2020/03/Dumbbell-Incline-Press.gif?fit=600%2C600&ssl=1' },
+      { name: 'Machine Chest Press', muscle_group: 'Chest', sets: 3, min_reps: 8, max_reps: 12, sort_order: 2, gif_url: 'https://i0.wp.com/www.strengthlog.com/wp-content/uploads/2020/03/Decline-Bench-Press.gif?resize=600%2C600&ssl=1' },
+      { name: 'Cable / Machine Fly', muscle_group: 'Chest', sets: 2, min_reps: 10, max_reps: 15, sort_order: 3, gif_url: 'https://i.makeagif.com/media/11-30-2023/1I-_Ge.gif' },
       { name: 'Lat Pulldown / Pull-ups', muscle_group: 'Back', sets: 3, min_reps: 8, max_reps: 12, sort_order: 4 },
       { name: 'Seated Cable Row', muscle_group: 'Back', sets: 3, min_reps: 8, max_reps: 12, sort_order: 5 },
       { name: 'Face Pull', muscle_group: 'Upper Back / Rear Delts', sets: 3, min_reps: 12, max_reps: 15, sort_order: 6 },
-      { name: 'Plank', muscle_group: 'Core', sets: 3, min_reps: 30, max_reps: 60, sort_order: 7, is_optional: true, notes: 'Hold 30-60 sec' },
+      { name: 'Plank', muscle_group: 'Core', sets: 3, min_reps: 30, max_reps: 60, sort_order: 7, is_optional: true, notes: 'Hold for 30-60 sec', gif_url: 'https://cdn.jefit.com/assets/img/exercises/gifs/631.gif' },
     ]
   },
+];
+
+// Backwards compatibility dictionary
+export const ROUTINE_TEMPLATES: Record<string, { type: DayType; name: string; exercises: Omit<ExerciseTemplate, 'id'>[]; instructions?: string[] }> = {
+  Saturday: ROUTINE_CYCLE[0],
+  Sunday: ROUTINE_CYCLE[1],
+  Monday: ROUTINE_CYCLE[2],
+  Tuesday: ROUTINE_CYCLE[3],
+  Wednesday: ROUTINE_CYCLE[4],
+  Thursday: ROUTINE_CYCLE[5],
+  Friday: ROUTINE_CYCLE[6],
 };
 
 const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -134,7 +144,7 @@ export function generate100Days(): WorkoutDay[] {
 
     const dateStr = formatDate(currentDate);
     const dayOfWeek = WEEKDAYS[currentDate.getDay()];
-    const routine = ROUTINE_TEMPLATES[dayOfWeek];
+    const routine = ROUTINE_CYCLE[i % ROUTINE_CYCLE.length];
     const dayNumber = i + 1;
     const dayId = `day-${dayNumber}`;
 
