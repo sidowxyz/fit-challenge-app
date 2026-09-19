@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+  
+  body {
+    @apply bg-surface-950 text-surface-100 font-sans;
+    -webkit-tap-highlight-color: transparent;
+    overflow-x: hidden;
+    touch-action: manipulation;
+  }
+
+  /* Prevent iOS automatic zoom on inputs */
+  @media screen and (max-width: 768px) {
+    input, select, textarea {
+      font-size: 16px !important;
+    }
+  }
+
+  /* Custom subtle scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #09090b;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #27272a;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3f3f46;
+  }
+}
+
+@layer components {
+  /* Duolingo 3D Tactile Buttons */
+  .btn-duo {
+    @apply relative select-none font-bold uppercase tracking-wider transition-all duration-100 inline-flex items-center justify-center cursor-pointer;
+  }
+
+  .btn-duo-primary {
+    @apply btn-duo bg-brand-500 hover:bg-brand-400 text-surface-950 border-b-4 border-brand-700 active:border-b-0 active:translate-y-1 rounded-2xl shadow-sm;
+  }
+
+  .btn-duo-secondary {
+    @apply btn-duo bg-surface-900 hover:bg-surface-850 text-surface-100 border-2 border-surface-700 border-b-4 border-b-surface-950 active:border-b-2 active:translate-y-0.5 rounded-2xl;
+  }
+
+  .btn-duo-amber {
+    @apply btn-duo bg-amber-500 hover:bg-amber-400 text-surface-950 border-b-4 border-amber-700 active:border-b-0 active:translate-y-1 rounded-2xl;
+  }
+
+  .btn-duo-danger {
+    @apply btn-duo bg-rose-500 hover:bg-rose-400 text-surface-100 border-b-4 border-rose-800 active:border-b-0 active:translate-y-1 rounded-2xl;
+  }
+
+  /* Duolingo Chunky 3D Cards */
+  .card-duo {
+    @apply bg-surface-900 border-2 border-surface-800 border-b-4 border-b-surface-950 rounded-2xl transition-all;
+  }
+
+  .card-duo-interactive {
+    @apply card-duo hover:border-brand-500/50 hover:border-b-brand-600 active:border-b-2 active:translate-y-0.5 cursor-pointer;
+  }
+
+  /* Resource Pills */
+  .pill-duo {
+    @apply inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl border-2 border-surface-800 border-b-4 border-b-surface-950 font-mono text-xs font-bold transition-all;
+  }
+
+  /* Node 3D Button */
+  .node-duo {
+    @apply w-16 h-16 rounded-full border-b-4 font-black flex items-center justify-center transition-all duration-100 select-none cursor-pointer;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 1rem);
+  }
+}
