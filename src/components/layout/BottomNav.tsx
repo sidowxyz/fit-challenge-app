@@ -14,10 +14,10 @@ const NAV_ITEMS: {
   icon: React.FC<any>;
   isPrimary?: boolean;
 }[] = [
-  { id: 'dashboard', label: 'Home',    icon: Icons.Dashboard },
-  { id: 'calendar',  label: 'Path',    icon: Icons.Calendar },
-  { id: 'workout',   label: 'Workout', icon: Icons.Dumbbell, isPrimary: true },
-  { id: 'more',      label: 'More',    icon: Icons.Settings },
+  { id: 'dashboard', label: 'Dashboard', icon: Icons.Dashboard },
+  { id: 'calendar',  label: 'Timeline',  icon: Icons.Calendar },
+  { id: 'workout',   label: 'Session',   icon: Icons.Dumbbell, isPrimary: true },
+  { id: 'more',      label: 'Hub',       icon: Icons.Settings },
 ];
 
 export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, setCurrentTab }) => {
@@ -27,9 +27,9 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, setCurrentTab 
   return (
     <nav
       aria-label="Bottom Navigation"
-      className="fixed bottom-0 left-0 right-0 z-50 bg-surface-950/95 backdrop-blur-md border-t-2 border-surface-850 px-3 sm:px-6 pt-2 pb-[max(0.6rem,env(safe-area-inset-bottom))] shadow-2xl"
+      className="fixed bottom-0 left-0 right-0 z-50 bg-surface-950/95 backdrop-blur-xl border-t border-surface-800 px-3 sm:px-6 pt-1.5 pb-[max(0.5rem,env(safe-area-inset-bottom))] shadow-[0_-10px_30px_rgba(0,0,0,0.8)]"
     >
-      <div className="grid grid-cols-4 gap-2 max-w-lg mx-auto sm:max-w-2xl">
+      <div className="grid grid-cols-4 gap-1.5 max-w-lg mx-auto sm:max-w-xl">
         {NAV_ITEMS.map((item) => {
           const IconComponent = item.icon;
           const isActive = currentTab === item.id;
@@ -41,41 +41,47 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, setCurrentTab 
               onClick={() => setCurrentTab(item.id)}
               className={`
                 relative flex flex-col items-center justify-center
-                py-2 px-1 rounded-2xl transition-all duration-100 min-h-[54px] select-none
-                border-2 border-b-4 font-mono
+                py-2 px-1 rounded-lg transition-all duration-150 min-h-[52px] select-none
                 ${isActive
-                  ? 'bg-brand-500/15 text-brand-300 border-brand-500 border-b-brand-600 shadow-sm'
+                  ? 'bg-surface-900/90 text-volt-400 border border-volt-500/40 shadow-[0_0_15px_rgba(204,255,0,0.12)]'
                   : isWorkout
-                    ? 'bg-surface-900 text-surface-300 border-surface-700 border-b-surface-950 hover:border-brand-500/40 active:translate-y-0.5 active:border-b-2'
-                    : 'bg-surface-900 text-surface-400 border-surface-800 border-b-surface-950 hover:text-surface-200 hover:border-surface-700 active:translate-y-0.5 active:border-b-2'
+                    ? 'text-surface-300 hover:text-white hover:bg-surface-900/50'
+                    : 'text-surface-400 hover:text-surface-200 hover:bg-surface-900/40'
                 }
               `}
             >
-              {/* Icon */}
-              <div className="relative">
+              {/* Top hairline active indicator */}
+              {isActive && (
+                <span className="absolute top-0 left-1/4 right-1/4 h-[2px] bg-volt-500 rounded-full shadow-[0_0_8px_rgba(204,255,0,0.8)]" />
+              )}
+
+              {/* Icon Container */}
+              <div className="relative mt-0.5">
                 <IconComponent
-                  size={22}
-                  className={isActive ? 'text-brand-400' : isWorkout ? 'text-surface-300' : 'text-surface-400'}
+                  size={20}
+                  className={`transition-transform duration-150 ${
+                    isActive 
+                      ? 'text-volt-400 scale-110 drop-shadow-[0_0_8px_rgba(204,255,0,0.4)]' 
+                      : isWorkout 
+                        ? 'text-surface-200' 
+                        : 'text-surface-400'
+                  }`}
                 />
+                
                 {/* Workout done badge */}
                 {isWorkout && isTodayDone && (
-                  <span className="absolute -top-1.5 -right-3 w-4 h-4 bg-emerald-400 text-surface-950 text-[10px] font-black rounded-full flex items-center justify-center border-2 border-surface-950 shadow-sm">
+                  <span className="absolute -top-1.5 -right-3 w-3.5 h-3.5 bg-volt-500 text-black text-[9px] font-black rounded-full flex items-center justify-center shadow-[0_0_8px_rgba(204,255,0,0.8)]">
                     ✓
                   </span>
                 )}
               </div>
 
               {/* Label */}
-              <span className={`text-[10px] mt-1 font-black uppercase tracking-tight ${
-                isActive ? 'text-brand-300' : isWorkout ? 'text-surface-300' : 'text-surface-400'
+              <span className={`text-[11px] mt-1 font-athletic font-bold uppercase tracking-wider ${
+                isActive ? 'text-volt-400 font-extrabold' : isWorkout ? 'text-surface-200' : 'text-surface-400'
               }`}>
                 {item.label}
               </span>
-
-              {/* Active indicator dot */}
-              {isActive && (
-                <span className="absolute bottom-1.5 w-1 h-1 rounded-full bg-brand-400" />
-              )}
             </button>
           );
         })}

@@ -36,15 +36,15 @@ export const MoreView: React.FC<MoreViewProps> = ({ onOpenAuthModal, onNavigateT
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex flex-col items-center justify-center py-2.5 px-1 rounded-2xl transition-all duration-100 select-none border-2 border-b-4 min-h-[56px] ${
+                className={`flex flex-col items-center justify-center py-2 px-1 rounded-lg transition-all duration-150 select-none min-h-[50px] border ${
                   isActive
-                    ? 'bg-brand-500/15 border-brand-500 border-b-brand-600 text-brand-300'
-                    : 'bg-surface-900 border-surface-800 border-b-surface-950 text-surface-400 hover:text-surface-200 hover:border-surface-700 active:translate-y-0.5 active:border-b-2'
+                    ? 'bg-surface-900 border-volt-500/50 text-volt-400 shadow-[0_0_15px_rgba(204,255,0,0.12)]'
+                    : 'bg-surface-950 border-surface-800 text-surface-400 hover:text-surface-200 hover:border-surface-700'
                 }`}
               >
-                <Icon size={20} className={isActive ? 'text-brand-400' : 'text-surface-400'} />
-                <span className={`text-[10px] mt-1 font-mono uppercase tracking-tight font-black truncate max-w-full px-0.5 ${
-                  isActive ? 'text-brand-300' : 'text-surface-400'
+                <Icon size={18} className={isActive ? 'text-volt-400' : 'text-surface-400'} />
+                <span className={`text-[11px] mt-1 font-athletic uppercase tracking-wider font-extrabold truncate max-w-full px-0.5 ${
+                  isActive ? 'text-volt-400' : 'text-surface-400'
                 }`}>
                   {tab.label}
                 </span>
@@ -55,12 +55,12 @@ export const MoreView: React.FC<MoreViewProps> = ({ onOpenAuthModal, onNavigateT
 
         {/* Active tab label */}
         <div className="flex items-center space-x-2 mt-3 px-1">
-          <ActiveIcon size={16} className="text-brand-400" />
-          <span className="text-xs font-mono font-black uppercase tracking-wider text-surface-300">
+          <ActiveIcon size={16} className="text-volt-400" />
+          <span className="text-xs font-athletic font-black uppercase tracking-wider text-white">
             {MORE_TABS.find(t => t.id === activeTab)?.label}
           </span>
-          <span className="text-[10px] font-mono text-surface-500 font-bold">
-            — {MORE_TABS.find(t => t.id === activeTab)?.desc}
+          <span className="text-[10px] font-mono text-surface-500 uppercase">
+            // {MORE_TABS.find(t => t.id === activeTab)?.desc}
           </span>
         </div>
         <div className="h-px bg-surface-800 mt-2" />

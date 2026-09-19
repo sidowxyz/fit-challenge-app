@@ -39,44 +39,106 @@
 }
 
 @layer components {
-  /* Duolingo 3D Tactile Buttons */
+  /* ==========================================================================
+     Bold & High-Energy Athletic Performance Design System (Nike / Gymshark)
+     ========================================================================== */
+
+  /* Performance Action Buttons */
+  .btn-athletic {
+    @apply relative select-none font-extrabold uppercase tracking-wider transition-all duration-150 inline-flex items-center justify-center cursor-pointer text-sm sm:text-base;
+    font-family: 'Barlow Condensed', 'Inter', sans-serif;
+  }
+
+  .btn-athletic-primary {
+    @apply btn-athletic text-black rounded-lg px-5 py-2.5 active:scale-[0.98];
+    background-color: #ccff00;
+    border: 1px solid #d4ff00;
+    box-shadow: 0 0 20px rgba(204, 255, 0, 0.22);
+  }
+  .btn-athletic-primary:hover {
+    background-color: #e5fe40;
+    box-shadow: 0 0 28px rgba(204, 255, 0, 0.38);
+  }
+
+  .btn-athletic-secondary {
+    @apply btn-athletic bg-surface-900 hover:bg-surface-850 text-surface-100 rounded-lg px-4 py-2 border border-surface-700 hover:border-surface-600 active:scale-[0.98];
+  }
+
+  .btn-athletic-volt-outline {
+    @apply btn-athletic rounded-lg px-4 py-2 active:scale-[0.98];
+    background-color: rgba(204, 255, 0, 0.1);
+    color: #ccff00;
+    border: 1px solid rgba(204, 255, 0, 0.4);
+  }
+  .btn-athletic-volt-outline:hover {
+    background-color: rgba(204, 255, 0, 0.2);
+    border-color: #ccff00;
+  }
+
+  .btn-athletic-danger {
+    @apply btn-athletic bg-rose-600 hover:bg-rose-500 text-white rounded-lg px-4 py-2 shadow-[0_0_15px_rgba(225,29,72,0.25)] active:scale-[0.98];
+  }
+
+  .btn-athletic-amber {
+    @apply btn-athletic bg-amber-500 hover:bg-amber-400 text-black rounded-lg px-4 py-2 shadow-[0_0_15px_rgba(245,158,11,0.25)] active:scale-[0.98];
+  }
+
+  /* Athletic Performance Cards */
+  .card-athletic {
+    @apply bg-surface-900/90 backdrop-blur-md border border-surface-800 rounded-xl transition-all duration-150;
+  }
+
+  .card-athletic-interactive {
+    @apply card-athletic hover:border-surface-700 hover:bg-surface-850/80 active:scale-[0.99] cursor-pointer;
+  }
+
+  .card-athletic-volt {
+    @apply bg-surface-900/90 rounded-xl;
+    border: 1px solid rgba(204, 255, 0, 0.3);
+    box-shadow: 0 0 25px rgba(204, 255, 0, 0.08);
+  }
+
+  /* Telemetry & Badges */
+  .badge-athletic {
+    @apply inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-md bg-surface-900 border border-surface-800 font-mono text-[11px] font-bold tracking-wider uppercase text-surface-300;
+  }
+
+  .badge-athletic-volt {
+    @apply inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-md font-mono text-[11px] font-black tracking-wider uppercase;
+    background-color: rgba(204, 255, 0, 0.1);
+    border: 1px solid rgba(204, 255, 0, 0.3);
+    color: #ccff00;
+    box-shadow: 0 0 12px rgba(204, 255, 0, 0.15);
+  }
+
+  /* Backwards compatibility aliases mapped to athletic */
   .btn-duo {
-    @apply relative select-none font-bold uppercase tracking-wider transition-all duration-100 inline-flex items-center justify-center cursor-pointer;
+    @apply btn-athletic;
   }
-
   .btn-duo-primary {
-    @apply btn-duo bg-brand-500 hover:bg-brand-400 text-surface-950 border-b-4 border-brand-700 active:border-b-0 active:translate-y-1 rounded-2xl shadow-sm;
+    @apply btn-athletic-primary;
   }
-
   .btn-duo-secondary {
-    @apply btn-duo bg-surface-900 hover:bg-surface-850 text-surface-100 border-2 border-surface-700 border-b-4 border-b-surface-950 active:border-b-2 active:translate-y-0.5 rounded-2xl;
+    @apply btn-athletic-secondary;
   }
-
   .btn-duo-amber {
-    @apply btn-duo bg-amber-500 hover:bg-amber-400 text-surface-950 border-b-4 border-amber-700 active:border-b-0 active:translate-y-1 rounded-2xl;
+    @apply btn-athletic-amber;
   }
-
   .btn-duo-danger {
-    @apply btn-duo bg-rose-500 hover:bg-rose-400 text-surface-100 border-b-4 border-rose-800 active:border-b-0 active:translate-y-1 rounded-2xl;
+    @apply btn-athletic-danger;
   }
-
-  /* Duolingo Chunky 3D Cards */
   .card-duo {
-    @apply bg-surface-900 border-2 border-surface-800 border-b-4 border-b-surface-950 rounded-2xl transition-all;
+    @apply card-athletic;
   }
-
   .card-duo-interactive {
-    @apply card-duo hover:border-brand-500/50 hover:border-b-brand-600 active:border-b-2 active:translate-y-0.5 cursor-pointer;
+    @apply card-athletic-interactive;
   }
-
-  /* Resource Pills */
   .pill-duo {
-    @apply inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl border-2 border-surface-800 border-b-4 border-b-surface-950 font-mono text-xs font-bold transition-all;
+    @apply badge-athletic;
   }
-
-  /* Node 3D Button */
   .node-duo {
-    @apply w-16 h-16 rounded-full border-b-4 font-black flex items-center justify-center transition-all duration-100 select-none cursor-pointer;
+    @apply w-14 h-14 rounded-xl font-black flex items-center justify-center transition-all duration-150 select-none cursor-pointer;
+    font-family: 'Barlow Condensed', 'Inter', sans-serif;
   }
 }
 

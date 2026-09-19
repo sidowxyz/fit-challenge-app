@@ -4,19 +4,33 @@ export const CHALLENGE_START_DATE = '2026-09-19';
 export const CHALLENGE_END_DATE = '2026-12-27';
 export const TOTAL_CHALLENGE_DAYS = 100;
 
+export const EXERCISE_GIF_MAP: Record<string, string> = {
+  'Bench Press': 'https://i0.wp.com/www.strengthlog.com/wp-content/uploads/2020/03/Decline-Bench-Press.gif?resize=600%2C600&ssl=1',
+  'Incline Dumbbell Press': 'https://i0.wp.com/www.strengthlog.com/wp-content/uploads/2020/03/Dumbbell-Incline-Press.gif?fit=600%2C600&ssl=1',
+  'Chest Fly Machine / Cable Fly': 'https://i.makeagif.com/media/11-30-2023/1I-_Ge.gif',
+  'Cable Triceps Pushdown': 'https://www.strengthlog.com/wp-content/uploads/2020/03/triceps-pushdown-with-rope.gif',
+  'Overhead Triceps Extension': 'https://media.tenor.com/TC6IqRAa9csAAAAM/dumbell-overhead-tricep-extension.gif',
+  'Assisted Dips / Machine Dips': 'https://cdn.jefit.com/assets/img/exercises/gifs/1261.gif',
+  'Plank': 'https://cdn.jefit.com/assets/img/exercises/gifs/631.gif',
+  'Bench Press / Machine Chest Press': 'https://i0.wp.com/www.strengthlog.com/wp-content/uploads/2020/03/Decline-Bench-Press.gif?resize=600%2C600&ssl=1',
+  'Incline Bench Press': 'https://i0.wp.com/www.strengthlog.com/wp-content/uploads/2020/03/Dumbbell-Incline-Press.gif?fit=600%2C600&ssl=1',
+  'Cable / Machine Fly': 'https://i.makeagif.com/media/11-30-2023/1I-_Ge.gif',
+  'Machine Chest Press': 'https://i0.wp.com/www.strengthlog.com/wp-content/uploads/2020/03/Decline-Bench-Press.gif?resize=600%2C600&ssl=1',
+};
+
 // Base exercise templates by weekday
 export const ROUTINE_TEMPLATES: Record<string, { type: DayType; name: string; exercises: Omit<ExerciseTemplate, 'id'>[]; instructions?: string[] }> = {
   Monday: {
     type: 'gym',
     name: 'Chest + Triceps',
     exercises: [
-      { name: 'Bench Press', muscle_group: 'Chest', sets: 3, min_reps: 8, max_reps: 12, sort_order: 1 },
-      { name: 'Incline Dumbbell Press', muscle_group: 'Chest', sets: 3, min_reps: 8, max_reps: 12, sort_order: 2 },
-      { name: 'Chest Fly Machine / Cable Fly', muscle_group: 'Chest', sets: 3, min_reps: 10, max_reps: 15, sort_order: 3 },
-      { name: 'Cable Triceps Pushdown', muscle_group: 'Triceps', sets: 3, min_reps: 10, max_reps: 15, sort_order: 4 },
-      { name: 'Overhead Triceps Extension', muscle_group: 'Triceps', sets: 3, min_reps: 10, max_reps: 15, sort_order: 5 },
-      { name: 'Assisted Dips / Machine Dips', muscle_group: 'Chest & Triceps', sets: 2, min_reps: 8, max_reps: 12, sort_order: 6 },
-      { name: 'Plank', muscle_group: 'Core', sets: 3, min_reps: 30, max_reps: 60, sort_order: 7, is_optional: true, notes: 'Hold for 30-60 sec' },
+      { name: 'Bench Press', muscle_group: 'Chest', sets: 3, min_reps: 8, max_reps: 12, sort_order: 1, gif_url: 'https://i0.wp.com/www.strengthlog.com/wp-content/uploads/2020/03/Decline-Bench-Press.gif?resize=600%2C600&ssl=1' },
+      { name: 'Incline Dumbbell Press', muscle_group: 'Chest', sets: 3, min_reps: 8, max_reps: 12, sort_order: 2, gif_url: 'https://i0.wp.com/www.strengthlog.com/wp-content/uploads/2020/03/Dumbbell-Incline-Press.gif?fit=600%2C600&ssl=1' },
+      { name: 'Chest Fly Machine / Cable Fly', muscle_group: 'Chest', sets: 3, min_reps: 10, max_reps: 15, sort_order: 3, gif_url: 'https://i.makeagif.com/media/11-30-2023/1I-_Ge.gif' },
+      { name: 'Cable Triceps Pushdown', muscle_group: 'Triceps', sets: 3, min_reps: 10, max_reps: 15, sort_order: 4, gif_url: 'https://www.strengthlog.com/wp-content/uploads/2020/03/triceps-pushdown-with-rope.gif' },
+      { name: 'Overhead Triceps Extension', muscle_group: 'Triceps', sets: 3, min_reps: 10, max_reps: 15, sort_order: 5, gif_url: 'https://media.tenor.com/TC6IqRAa9csAAAAM/dumbell-overhead-tricep-extension.gif' },
+      { name: 'Assisted Dips / Machine Dips', muscle_group: 'Chest & Triceps', sets: 2, min_reps: 8, max_reps: 12, sort_order: 6, gif_url: 'https://cdn.jefit.com/assets/img/exercises/gifs/1261.gif' },
+      { name: 'Plank', muscle_group: 'Core', sets: 3, min_reps: 30, max_reps: 60, sort_order: 7, is_optional: true, notes: 'Hold for 30-60 sec', gif_url: 'https://cdn.jefit.com/assets/img/exercises/gifs/631.gif' },
     ]
   },
   Tuesday: {
@@ -126,7 +140,8 @@ export function generate100Days(): WorkoutDay[] {
 
     const exercises: ExerciseTemplate[] = routine.exercises.map((ex, idx) => ({
       ...ex,
-      id: `${dayId}-ex-${idx + 1}`
+      id: `${dayId}-ex-${idx + 1}`,
+      gif_url: ex.gif_url || EXERCISE_GIF_MAP[ex.name]
     }));
 
     days.push({

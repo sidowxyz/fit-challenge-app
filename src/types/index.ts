@@ -45,6 +45,7 @@ export interface ExerciseTemplate {
   sort_order: number;
   is_optional?: boolean;
   notes?: string;
+  gif_url?: string;
 }
 
 export interface WorkoutDay {

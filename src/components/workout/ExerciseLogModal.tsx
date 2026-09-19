@@ -147,34 +147,48 @@ export const ExerciseLogModal: React.FC<ExerciseLogModalProps> = ({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="p-4 sm:p-5 border-b-2 border-surface-800 flex items-start justify-between">
+        <div className="p-4 sm:p-5 border-b border-surface-800 flex items-start justify-between">
           <div>
-            <div className="text-[11px] uppercase tracking-wider font-mono text-brand-400 font-black mb-0.5">
+            <div className="text-xs uppercase tracking-widest font-athletic text-volt-400 font-black mb-0.5">
               {exercise.muscle_group}
             </div>
-            <h2 className="text-lg sm:text-xl font-black text-surface-100 uppercase tracking-tight font-mono">
+            <h2 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight font-athletic">
               {exercise.name}
             </h2>
-            <div className="text-xs font-mono text-surface-400 mt-1 font-bold">
-              Target: <span className="text-surface-100">{exercise.sets} × {exercise.min_reps}–{exercise.max_reps} reps</span>
+            <div className="text-xs font-mono text-surface-400 mt-1 font-semibold">
+              TARGET: <span className="text-white">{exercise.sets} SETS × {exercise.min_reps}–{exercise.max_reps} REPS</span>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 text-surface-400 hover:text-surface-100 bg-surface-950 hover:bg-surface-800 rounded-xl border border-surface-800 transition-colors"
+            className="p-2 text-surface-400 hover:text-white bg-surface-950 hover:bg-surface-800 rounded-lg border border-surface-800 transition-colors"
           >
             <Icons.Close size={18} />
           </button>
         </div>
 
+        {/* Animated Exercise GIF Demonstration */}
+        {exercise.gif_url && (
+          <div className="relative w-full h-40 sm:h-48 bg-surface-950 flex items-center justify-center overflow-hidden border-b border-surface-800">
+            <img
+              src={exercise.gif_url}
+              alt={`${exercise.name} demonstration`}
+              className="w-full h-full object-contain p-2"
+            />
+            <div className="absolute bottom-2 left-3 px-2 py-0.5 bg-surface-950/80 backdrop-blur-xs rounded text-[10px] font-athletic font-black text-volt-400 border border-volt-500/30 uppercase tracking-wider">
+              TECHNIQUE & EXECUTION FORM
+            </div>
+          </div>
+        )}
+
         {/* Previous session reference */}
         {lastLoggedSets.length > 0 && (
           <div className="px-5 py-2.5 bg-surface-950/80 border-b border-surface-800 flex items-center justify-between text-xs font-mono text-surface-400 font-bold">
             <span className="flex items-center space-x-1.5">
-              <Icons.History size={14} className="text-surface-400" />
-              <span>Last session:</span>
+              <Icons.History size={14} className="text-volt-400" />
+              <span>PREVIOUS BENCHMARK:</span>
             </span>
-            <span className="text-surface-200">
+            <span className="text-volt-400 font-black">
               {lastLoggedSets.map(s => `${formatWeight(s.weight, unit).value} ${unit} × ${s.reps}`).join(' · ')}
             </span>
           </div>
@@ -183,16 +197,16 @@ export const ExerciseLogModal: React.FC<ExerciseLogModalProps> = ({
         {/* Scrollable Set Table */}
         <div className="p-4 sm:p-5 overflow-y-auto space-y-4 flex-1">
           {saveError && (
-            <div className="p-3 rounded-2xl bg-rose-500/10 border-2 border-rose-500/30 text-rose-400 text-xs flex items-center space-x-2 font-mono font-bold">
+            <div className="p-3 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs flex items-center space-x-2 font-mono font-bold">
               <Icons.Alert size={16} className="shrink-0" />
               <span>{saveError}</span>
             </div>
           )}
 
           {/* Table Header */}
-          <div className="grid grid-cols-12 gap-2 text-[11px] font-mono font-black uppercase text-surface-400 px-1">
+          <div className="grid grid-cols-12 gap-2 text-[11px] font-athletic font-black uppercase tracking-wider text-surface-400 px-1">
             <span className="col-span-2">SET</span>
-            <span className="col-span-5">WEIGHT ({unit})</span>
+            <span className="col-span-5">LOAD ({unit})</span>
             <span className="col-span-4">REPS</span>
             <span className="col-span-1 text-right"></span>
           </div>
@@ -202,11 +216,11 @@ export const ExerciseLogModal: React.FC<ExerciseLogModalProps> = ({
             {sets.map((item, idx) => (
               <div 
                 key={idx}
-                className="grid grid-cols-12 gap-2 items-center bg-surface-950 p-2.5 rounded-2xl border-2 border-surface-800 border-b-4 border-b-surface-950"
+                className="grid grid-cols-12 gap-2 items-center bg-surface-950 p-2.5 rounded-lg border border-surface-800"
               >
                 {/* Set # */}
-                <div className="col-span-2 font-mono font-black text-sm text-surface-200 pl-1">
-                  S{item.setNumber}
+                <div className="col-span-2 font-athletic font-black text-sm text-volt-400 pl-1">
+                  SET {item.setNumber}
                 </div>
 
                 {/* Weight Input */}
@@ -220,7 +234,7 @@ export const ExerciseLogModal: React.FC<ExerciseLogModalProps> = ({
                       value={item.weight === 0 ? '' : item.weight}
                       onChange={(e) => handleUpdateSet(idx, 'weight', parseFloat(e.target.value) || 0)}
                       placeholder="0"
-                      className="w-full bg-surface-900 border-2 border-surface-700 rounded-xl px-2.5 py-2 text-sm font-mono font-bold text-surface-100 focus:outline-none focus:border-brand-500 pr-7"
+                      className="w-full bg-surface-900 border border-surface-700 rounded-md px-2.5 py-1.5 text-sm font-mono font-bold text-white focus:outline-none focus:border-volt-500 pr-7"
                     />
                     <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-surface-400 font-mono font-black pointer-events-none uppercase">
                       {unit}
@@ -238,7 +252,7 @@ export const ExerciseLogModal: React.FC<ExerciseLogModalProps> = ({
                     value={item.reps === 0 ? '' : item.reps}
                     onChange={(e) => handleUpdateSet(idx, 'reps', parseInt(e.target.value, 10) || 0)}
                     placeholder="reps"
-                    className="w-full bg-surface-900 border-2 border-surface-700 rounded-xl px-2.5 py-2 text-sm font-mono font-bold text-surface-100 focus:outline-none focus:border-brand-500"
+                    className="w-full bg-surface-900 border border-surface-700 rounded-md px-2.5 py-1.5 text-sm font-mono font-bold text-white focus:outline-none focus:border-volt-500"
                   />
                 </div>
 
@@ -248,7 +262,7 @@ export const ExerciseLogModal: React.FC<ExerciseLogModalProps> = ({
                     <button
                       type="button"
                       onClick={() => handleRemoveSet(idx)}
-                      className="p-1.5 text-surface-500 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors"
+                      className="p-1.5 text-surface-500 hover:text-rose-400 hover:bg-rose-500/10 rounded transition-colors"
                       title="Remove set"
                     >
                       <Icons.Trash size={16} />
@@ -259,47 +273,47 @@ export const ExerciseLogModal: React.FC<ExerciseLogModalProps> = ({
             ))}
           </div>
 
-          {/* Add Set 3D Button */}
+          {/* Add Set Button */}
           <button
             type="button"
             onClick={handleAddSet}
-            className="w-full py-2.5 px-3 rounded-2xl border-2 border-dashed border-surface-700 hover:border-brand-500/60 hover:bg-surface-800/40 text-xs font-mono font-bold text-surface-300 flex items-center justify-center space-x-1.5 transition-colors"
+            className="w-full py-2.5 px-3 rounded-lg border border-dashed border-surface-750 hover:border-volt-500/60 hover:bg-surface-850/60 text-xs font-athletic font-black uppercase tracking-wider text-surface-300 hover:text-white flex items-center justify-center space-x-1.5 transition-colors"
           >
-            <Icons.Plus size={16} className="text-brand-400" />
-            <span>+ ADD SET</span>
+            <Icons.Plus size={16} className="text-volt-400" />
+            <span>+ ADD SET PROTOCOL</span>
           </button>
 
           {/* Notes */}
           <div>
-            <label className="block text-xs font-mono font-black uppercase text-surface-400 mb-1.5">
-              Notes (optional)
+            <label className="block text-xs font-athletic font-black uppercase tracking-wider text-surface-400 mb-1.5">
+              SESSION NOTES (OPTIONAL)
             </label>
             <input
               type="text"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="e.g., Felt strong, good RPE 8, increased +2.5kg"
-              className="w-full bg-surface-950 border-2 border-surface-800 rounded-xl px-3.5 py-2.5 text-xs font-mono text-surface-200 placeholder:text-surface-600 focus:outline-none focus:border-brand-500"
+              placeholder="e.g., Felt explosive, RPE 8, +2.5kg increase"
+              className="w-full bg-surface-950 border border-surface-800 rounded-lg px-3.5 py-2 text-xs font-mono text-surface-200 placeholder:text-surface-600 focus:outline-none focus:border-volt-500"
               maxLength={150}
             />
           </div>
         </div>
 
-        {/* Duolingo Style 3D Action Footer */}
-        <div className="p-4 sm:p-5 border-t-2 border-surface-800 bg-surface-900 flex items-center justify-between gap-3">
+        {/* Action Footer */}
+        <div className="p-4 sm:p-5 border-t border-surface-800 bg-surface-900 flex items-center justify-between gap-3">
           <button
             type="button"
             onClick={onClose}
-            className="btn-duo-secondary px-5 py-3 text-xs font-mono"
+            className="btn-athletic-secondary px-5 py-2.5 text-xs font-athletic"
           >
-            Cancel
+            CANCEL
           </button>
 
           <button
             type="button"
             onClick={handleSave}
             disabled={isSaving || sets.length === 0}
-            className="btn-duo-primary px-7 py-3 text-xs font-mono flex items-center space-x-2"
+            className="btn-athletic-primary px-7 py-2.5 text-xs font-athletic font-black uppercase tracking-wider flex items-center space-x-2"
           >
             {showSavedFeedback ? (
               <>
@@ -307,7 +321,7 @@ export const ExerciseLogModal: React.FC<ExerciseLogModalProps> = ({
                 <span>SAVED ✓</span>
               </>
             ) : (
-              <span>{isSaving ? 'SAVING...' : 'SAVE EXERCISE'}</span>
+              <span>{isSaving ? 'SAVING...' : 'CONFIRM & SAVE SETS'}</span>
             )}
           </button>
         </div>
